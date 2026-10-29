@@ -1,0 +1,31 @@
+{
+    "spi": {
+        "device": "/dev/spidev1.1",
+        "speed": 32000000
+    },
+    "gpio": {
+        "cs": 74,
+        "dc": 71,
+        "rst": 78
+    },
+    "panel": {
+        "width": 135,
+        "height": 240,
+        "initSpeedHz": 1000000,
+        "offsetX": 40,
+        "offsetY": 52,
+        "invert": true
+    },
+    "fonts": {
+        "dir": "/usr/share/fonts/truetype/dejavu"
+    },
+    "mouse": {
+        "enabled": true,
+        "showCursor": true,
+        "device": "auto"
+    },
+    "keyboard": {
+        "enabled": true,
+        "device": "auto"
+    }
+}

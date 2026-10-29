@@ -1,0 +1,40 @@
+/**
+ * @file Config.hpp
+ * @brief Конфигурация плагина: JSON-файл и переменные окружения.
+ */
+
+#pragma once
+
+#include "St7789Driver.hpp"
+
+#include <QString>
+
+/**
+ * @struct QpaConfig
+ * @brief Полная конфигурация плагина: шина, пины, панель, шрифты.
+ */
+struct QpaConfig
+{
+    QString spiDevice;          ///< путь к spidev, например /dev/spidev1.1
+    int chipSelectPin;          ///< глобальный номер GPIO линии CS
+    int dataCommandPin;         ///< глобальный номер GPIO линии DC
+    int resetPin;               ///< глобальный номер GPIO линии RST
+    St7789Driver::Config panel; ///< параметры панели и скоростей
+    QString fontDir;            ///< каталог шрифтов; пустая строка = fontconfig
+    bool mouseEnabled = true;   ///< читать мышь и доставлять события
+    bool mouseShowCursor = true; ///< рисовать программный курсор
+    QString mouseDevice;        ///< evdev-устройство мыши; пустая строка = автопоиск
+    bool keyboardEnabled = true; ///< читать клавиатуру и доставлять события
+    QString keyboardDevice;     ///< evdev-устройство клавиатуры; пустая строка = автопоиск
+};
+
+/**
+ * @brief Собирает конфигурацию: дефолт + JSON + переменные окружения.
+ *
+ * JSON ищется в первом существующем месте: $QPA_ST7789_CONFIG,
+ * ./qpa_st7789.json, /etc/qpa_st7789.json. Отсутствие файла не ошибка.
+ * Переменные QT_SPI_DEV, QT_SPI_SPEED, QT_SPI_GPIO_CS/DC/RST, QT_MOUSE_DEV
+ * имеют приоритет над JSON.
+ * @return итоговая конфигурация
+ */
+QpaConfig loadQpaConfig();
