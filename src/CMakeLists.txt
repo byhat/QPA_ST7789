@@ -23,5 +23,5 @@ target_link_libraries(qpast7789 PRIVATE Qt6::Gui Qt6::GuiPrivate st7789)
 if(QT6_INSTALL_PLUGINS)
     install(TARGETS qpast7789 DESTINATION ${QT6_INSTALL_PLUGINS}/platforms)
     install(FILES ${CMAKE_SOURCE_DIR}/config/qpa_st7789.json
-            DESTINATION ${CMAKE_INSTALL_DATADIR}/qpa_st7789/examples)
+            DESTINATION ${CMAKE_INSTALL_DATADIR}/qpa_st7789)
 endif()

@@ -13,7 +13,7 @@
 #include "Window.hpp"
 #include "SpidevBus.hpp"
 #include "St7789Driver.hpp"
-#include "SysfsGpioLine.hpp"
+#include "GpioLine.hpp"
 
 #include <QTimer>
 
@@ -27,9 +27,12 @@ QpaSt7789Integration::QpaSt7789Integration()
 {
     try {
         m_bus = std::make_unique<SpidevBus>(m_config.spiDevice.toStdString());
-        m_chipSelect = std::make_unique<SysfsGpioLine>(m_config.chipSelectPin);
-        m_dataCommand = std::make_unique<SysfsGpioLine>(m_config.dataCommandPin);
-        m_reset = std::make_unique<SysfsGpioLine>(m_config.resetPin);
+        m_chipSelect = std::make_unique<GpioLine>(m_config.chipSelectLine.toStdString(),
+                                                  "qpast7789");
+        m_dataCommand = std::make_unique<GpioLine>(m_config.dataCommandLine.toStdString(),
+                                                   "qpast7789");
+        m_reset = std::make_unique<GpioLine>(m_config.resetLine.toStdString(),
+                                             "qpast7789");
         m_driver = std::make_unique<St7789Driver>(
             *m_bus, *m_chipSelect, *m_dataCommand, *m_reset, m_config.panel);
         m_driver->initialize();
