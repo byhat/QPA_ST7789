@@ -16,9 +16,9 @@
 struct QpaConfig
 {
     QString spiDevice;          ///< путь к spidev, например /dev/spidev1.1
-    QString chipSelectLine;     ///< GPIO линия CS: имя, "chip:line" или номер
-    QString dataCommandLine;    ///< GPIO линия DC: имя, "chip:line" или номер
-    QString resetLine;          ///< GPIO линии RST: имя, "chip:line" или номер
+    int chipSelectPin;          ///< GPIO линия CS (колонка GPIO в gpio readall)
+    int dataCommandPin;         ///< GPIO линия DC
+    int resetPin;               ///< GPIO линия RST
     St7789Driver::Config panel; ///< параметры панели и скоростей
     QString fontDir;            ///< каталог шрифтов; пустая строка = fontconfig
     bool mouseEnabled = true;   ///< читать мышь и доставлять события
@@ -33,8 +33,7 @@ struct QpaConfig
  *
  * JSON ищется в первом существующем месте: $QPA_ST7789_CONFIG,
  * ./qpa_st7789.json, /etc/qpa_st7789.json. Отсутствие файла не ошибка.
- * Переменные QT_SPI_DEV, QT_SPI_SPEED, QT_SPI_GPIO_CS/DC/RST (имя линии,
- * "chip:line" или номер), QT_MOUSE_DEV
+ * Переменные QT_SPI_DEV, QT_SPI_SPEED, QT_SPI_GPIO_CS/DC/RST, QT_MOUSE_DEV
  * имеют приоритет над JSON.
  * @return итоговая конфигурация
  */

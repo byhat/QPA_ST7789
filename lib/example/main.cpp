@@ -2,14 +2,14 @@
  * @file main.cpp
  * @brief Демонстрация драйвера ST7789: сборка слоёв и заливка цветами.
  *
- * Слои собираются здесь: SpidevBus и GpioLine (доступ к железу)
+ * Слои собираются здесь: SpidevBus и WiringGpioLine (доступ к железу)
  * передаются в St7789Driver по ссылке. Кадры формируются вектором
  * пикселей RGB565 и отдаются драйверу через blit() - тот же контракт,
  * что у QPA-плагина.
  */
 
 #include "SpidevBus.hpp"
-#include "GpioLine.hpp"
+#include "WiringGpioLine.hpp"
 #include "St7789Driver.hpp"
 
 #include <cstdint>
@@ -25,11 +25,10 @@ namespace {
 /// Путь к SPI-устройству шины дисплея (SPI1, CS1).
 constexpr const char *kSpiDevice = "/dev/spidev1.1";
 
-/// Линии GPIO Orange Pi Zero 3: номер = смещение в gpiochip0 (PC10 = 64+10).
-/// На других платах подставьте имя линии из gpioinfo или "gpiochipN:MM".
-constexpr const char *kChipSelectLine = "74";   ///< PC10, физический пин 26
-constexpr const char *kDataCommandLine = "71";  ///< PC7, физический пин 22
-constexpr const char *kResetLine = "78";        ///< PC14, физический пин 18
+/// Линии GPIO Orange Pi Zero 3 (колонка GPIO в gpio readall).
+constexpr int kChipSelectPin = 74;  ///< PC10, физический пин 26
+constexpr int kDataCommandPin = 71; ///< PC7, физический пин 22
+constexpr int kResetPin = 78;       ///< PC14, физический пин 18
 
 /// Параметры панели 1.14" 135x240 и скоростей шины.
 constexpr St7789Driver::Config kPanelConfig = {
@@ -58,9 +57,9 @@ int main()
 {
     try {
         SpidevBus spiBus(kSpiDevice);
-        GpioLine chipSelect(kChipSelectLine, "st7789-example");
-        GpioLine dataCommand(kDataCommandLine, "st7789-example");
-        GpioLine reset(kResetLine, "st7789-example");
+        WiringGpioLine chipSelect(kChipSelectPin);
+        WiringGpioLine dataCommand(kDataCommandPin);
+        WiringGpioLine reset(kResetPin);
 
         St7789Driver driver(spiBus, chipSelect, dataCommand, reset, kPanelConfig);
         driver.initialize();

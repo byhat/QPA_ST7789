@@ -8,8 +8,8 @@
 #include <chrono>
 #include <thread>
 
-St7789Driver::St7789Driver(SpidevBus &bus, GpioLine &chipSelect,
-                           GpioLine &dataCommand, GpioLine &reset,
+St7789Driver::St7789Driver(SpidevBus &bus, WiringGpioLine &chipSelect,
+                           WiringGpioLine &dataCommand, WiringGpioLine &reset,
                            const Config &config)
     : bus_(bus)
     , chipSelect_(chipSelect)
