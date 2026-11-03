@@ -25,10 +25,10 @@ namespace {
 /// Путь к SPI-устройству шины дисплея (SPI1, CS1).
 constexpr const char *kSpiDevice = "/dev/spidev1.1";
 
-/// Линии GPIO Orange Pi Zero 3 (колонка GPIO в gpio readall).
-constexpr int kChipSelectPin = 74;  ///< PC10, физический пин 26
-constexpr int kDataCommandPin = 71; ///< PC7, физический пин 22
-constexpr int kResetPin = 78;       ///< PC14, физический пин 18
+/// Физические пины разъёма Orange Pi Zero 3 (wiringPiSetupPhys).
+constexpr int kChipSelectPin = 26;  ///< PC10
+constexpr int kDataCommandPin = 22; ///< PC7
+constexpr int kResetPin = 18;       ///< PC14
 
 /// Параметры панели 1.14" 135x240 и скоростей шины.
 constexpr St7789Driver::Config kPanelConfig = {
