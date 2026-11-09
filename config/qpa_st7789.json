@@ -1,19 +1,19 @@
 {
     "spi": {
-        "device": "/dev/spidev1.1",
+        "device": "/dev/spidev0.0",
         "speed": 32000000
     },
     "gpio": {
         "cs": 26,
-        "dc": 22,
-        "rst": 18
+        "dc": 13,
+        "rst": 15
     },
     "panel": {
         "width": 135,
         "height": 240,
         "initSpeedHz": 1000000,
-        "offsetX": 40,
-        "offsetY": 52,
+        "offsetX": 52,
+        "offsetY": 40,
         "invert": true
     },
     "fonts": {
